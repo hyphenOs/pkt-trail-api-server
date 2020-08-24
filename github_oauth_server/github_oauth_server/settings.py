@@ -19,8 +19,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+# Retrieve and set environment variables from .env file.
+# Will be be used to retrieve SECRET KEY required below
+with open(".env", 'r') as f:
+    for line in f:
+        key, value = line.split("=", 1)  # "=" in value ignored
+        os.environ[key.strip()] = value.strip()
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'SECRET_KEY'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -126,9 +133,3 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://127.0.0.1:3000"
 ]
-
-# Retrieve and set environment variables from .env file
-with open(".env",'r') as f:
-    for line in f:
-        key,value = line.split("=")
-        os.environ[key.strip()] = value.strip()
