@@ -5,13 +5,15 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework_simplejwt.tokens import RefreshToken
 
 import requests
 
 _logger = logging.getLogger(__name__)
 
+
 @api_view(('POST',))
-def authenticate(req):
+def auth_github(req):
     code = req.POST.get('code', None)
 
     if code is None:
@@ -22,7 +24,16 @@ def authenticate(req):
     if access_token:
         user_info = get_user_info(access_token)
         if user_info:
-            return Response(dict(user=user_info), status=status.HTTP_200_OK)
+            token_payload = {
+                'id': user_info['id'],
+                'name': user_info['name'],
+                'login': user_info['login'],
+                'html_url': user_info['html_url'],
+                'avatar_url': user_info['avatar_url']
+            }
+            token = get_jwt_token(token_payload)
+
+            return Response(dict(token=token['access']), status=status.HTTP_200_OK)
 
         return Response(dict(message="User not found"), status=status.HTTP_404_NOT_FOUND)
 
@@ -51,6 +62,7 @@ def get_access_token(code):
 
     return access_token
 
+
 def get_user_info(access_token):
     GITHUB_USER_INFO_URL = "https://api.github.com/user"
 
@@ -67,3 +79,17 @@ def get_user_info(access_token):
         return user_info
 
     return None
+
+
+def get_jwt_token(payload):
+    refresh = RefreshToken()
+    refresh['id'] = payload['id']
+    refresh['name'] = payload['name']
+    refresh['login'] = payload['login']
+    refresh['html_url'] = payload['html_url']
+    refresh['avatar_url'] = payload['avatar_url']
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token)
+    }
