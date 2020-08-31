@@ -1,22 +1,24 @@
 [
   {
-   "name" : "Packet Trail Demo Server",
-   "id" : 1,
-   "details" : {
-  	"ip" : "192.168.42.1",
-	"status": "Active"
-   },
-   "services": [
-	"http" : {
-	     "cmd": "nginx",
-             "port": 80,
-	     "pid" : 1010
-	},
-        "https" : {
-	     "cmd" : "nginx",
-             "port" : 443,
-	     "pid": 1010
-	}
+    "name": "Packet Trail Demo Server",
+    "id": 1,
+    "details": {
+      "ip": "192.168.42.1",
+      "status": "Active"
+    },
+    "services": [
+      {
+        "http": {
+          "cmd": "nginx",
+          "port": 80,
+          "pid": 1010
+        },
+        "https": {
+          "cmd": "nginx",
+          "port": 443,
+          "pid": 1010
+        }
+      }
     ]
   }
 ]
