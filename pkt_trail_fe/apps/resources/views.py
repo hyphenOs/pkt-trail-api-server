@@ -63,7 +63,6 @@ class InvalidJWT(APIException):
 
 
 class ResourceView(APIView):
-    permission_classes = [CustomPermission, ]
 
     def get(self, req):
         resources_json_path = BASE_DIR + "/sample_jsons/resources.json"
