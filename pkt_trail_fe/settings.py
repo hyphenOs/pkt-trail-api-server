@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'pkt_trail_fe.apps.users',
+    'pkt_trail_fe.apps.resources',
 ]
 
 MIDDLEWARE = [
