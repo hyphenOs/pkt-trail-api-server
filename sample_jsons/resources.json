@@ -11,7 +11,7 @@
         "http": {
           "cmd": "nginx",
           "port": 80,
-          "pid": 1010
+          "proto": 1010
         },
         "https": {
           "cmd": "nginx",
