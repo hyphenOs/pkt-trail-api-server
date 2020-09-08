@@ -1,4 +1,4 @@
-"""pkt_trail_fe URL Configuration
+"""pkt_trail_api URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -18,6 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("users/", include('pkt_trail_fe.apps.users.urls')),
-    path("resources/", include('pkt_trail_fe.apps.resources.urls')),
+    path("users/", include('pkt_trail_api.apps.users.urls')),
+    path("resources/", include('pkt_trail_api.apps.resources.urls')),
 ]
