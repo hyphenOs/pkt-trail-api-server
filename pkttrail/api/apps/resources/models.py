@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 # Create your models here.
@@ -31,6 +33,7 @@ class PktTrailResource(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     last_updated_at = models.DateTimeField(auto_now=True)
     details = models.CharField(max_length=512, blank=True, null=True)
+    uuid = models.UUIDField(editable=False, default=uuid.uuid4, primary_key=True)
 
     class Meta:
         ordering = ('-created_at',)
