@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("users/", include('pkttrail.api.apps.users.urls')),
     path("resources/", include('pkttrail.api.apps.resources.urls')),
+    path("agents/", include('pkttrail.api.apps.agents.urls')),
 ]

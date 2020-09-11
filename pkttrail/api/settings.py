@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'pkttrail.api.apps.users',
     'pkttrail.api.apps.resources',
+    'pkttrail.api.apps.agents',
 ]
 
 MIDDLEWARE = [
