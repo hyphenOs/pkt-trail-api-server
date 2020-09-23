@@ -6,6 +6,7 @@ from pkttrail.schema.messages import (
         OS_AGENT_INIT_MESSAGE,
         OS_AGENT_KEEPALIVE_MESSAGE,
         JSON_RPC_VERSION_2,
+        method_to_schema_class
     )
 
 from pkttrail.schema.messages import (
@@ -13,17 +14,12 @@ from pkttrail.schema.messages import (
         PktTrailKeepAliveResponseSchema
     )
 
-_method_to_schema = {
-        OS_AGENT_INIT_MESSAGE: PktTrailInitResponseSchema,
-        OS_AGENT_KEEPALIVE_MESSAGE: PktTrailKeepAliveResponseSchema
-    }
-
-
 def get_api_response_ok(method, msgid):
     """ Return a Simple Success Response."""
 
     try:
-        schema = _method_to_schema[method]
+        classes = method_to_schema_class[method]
+        schema = classes['response']
     except KeyError:
         return _get_api_response_error_bad_method(msgid)
 
