@@ -96,6 +96,8 @@ class PktTrailAgentsViewSet(viewsets.ViewSet):
             for service in resource.services.all():
                 try:
                     ports.remove(service.port)
+                    service.state = 0
+                    service.save()
                 except ValueError:
                     # Service port exists, but not in the current list,
                     # mark this as inactive.
