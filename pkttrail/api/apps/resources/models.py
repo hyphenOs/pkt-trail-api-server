@@ -25,8 +25,8 @@ class PktTrailResource(models.Model):
         ]
 
     name = models.CharField(max_length=100, blank=False, null=False)
-    state = models.IntegerField(null=False, default=0)
-    res_type = models.IntegerField(null=False, default=0)
+    state = models.IntegerField(null=False, default=0, choices=RESOURCE_STATES)
+    res_type = models.IntegerField(null=False, default=0, choices=RESOURCE_TYPES)
     owner = models.ForeignKey('users.PktTrailUser', related_name='resources', on_delete=models.CASCADE)
     agent_url = models.URLField()
     data_url = models.CharField(max_length=100, blank=True, null=True)
@@ -46,12 +46,21 @@ class PktTrailService(models.Model):
     That is while starting a packet capture on a resource, the service
     identifies the filter that is to be applied."""
 
+    SERVICE_STATES = [
+            (-1, "Unknown"),
+            (0, "Running"),
+            (1, "Stopped"),
+            (2, "Error")
+        ]
+
     name = models.CharField(max_length=100, blank=True, null=False)
     proto = models.CharField(max_length=8, blank=True, null=False)
-    port_no = models.IntegerField()
+    interface = models.CharField(max_length=16, blank=True, null=False)
+    port = models.IntegerField()
     filter_str = models.CharField(max_length=64, blank=True, null=False)
     resource = models.ForeignKey('resources.PktTrailResource', related_name='services', on_delete=models.CASCADE)
     details = models.CharField(max_length=100, blank=True, null=True)
+    state = models.IntegerField(null=False, default=-1, choices=SERVICE_STATES)
 
     class Meta:
         db_table = 'pkt_trail_services'
