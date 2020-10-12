@@ -152,3 +152,5 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'users.PktTrailUser'
+
+CELERY_BROKER_URL = 'redis://localhost'

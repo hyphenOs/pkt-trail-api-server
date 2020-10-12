@@ -88,6 +88,10 @@ class PktTrailAgentsViewSet(viewsets.ViewSet):
                 return Response(dict(message="Not Found."),
                         status=http_status.HTTP_404_NOT_FOUND)
 
+            # 1.1 : Mark Resource as Online
+            resource.state = 2
+            resource.save()
+
             # 2. Update all Services.
             services = keepalive_req['params']['services']
             ports = [s['port'] for s in services]

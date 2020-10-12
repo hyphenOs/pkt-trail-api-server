@@ -4,3 +4,5 @@ djangorestframework
 djangorestframework-simplejwt
 requests
 -e git+https://github.com/gabhijit/pkt-trail-api-schema.git@master#egg=pkttrail
+celery
+redis
